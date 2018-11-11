@@ -1,0 +1,46 @@
+---
+title: "bayesian"
+author: "hafez ahmad ,Oceanography ,University of Chittagong"
+date: "November 9, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+```{r}
+library(LearnBayes)
+library(BayesianTools)
+```
+
+```{r}
+ll <- generateTestDensityMultiNormal(sigma = "no correlation")
+bayesianSetup = createBayesianSetup(likelihood = ll, lower = rep(-10, 3), upper = rep(10, 3))
+```
+```{r}
+iter = 10000
+settings = list(iterations = iter, message = FALSE)
+out <- runMCMC(bayesianSetup = bayesianSetup, sampler = "Metropolis", settings = settings)
+
+```
+```{r}
+summary(out)
+```
+
+```{r}
+plot(out)
+```
+
+```{r}
+correlationPlot(out)
+```
+```{r}
+marginalPlot(out)
+```
+```{r}
+marginalLikelihood(out)
+```
+
